@@ -3,6 +3,8 @@ import LightRays from '../components/LightRays';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 
 const Index = () => {
   const skills = [
@@ -28,6 +30,71 @@ const Index = () => {
       tech: ["TensorFlow", "OpenCV", "Docker", "Flask"]
     }
   ];
+
+  const experiences = [
+    {
+      company: "TechCorp Analytics",
+      position: "Senior Data Scientist",
+      period: "2022 - Present",
+      logo: "https://via.placeholder.com/80x80/00ffff/000000?text=TC",
+      description: "Leading ML initiatives and data strategy for enterprise clients",
+      projects: [
+        "Developed customer segmentation models increasing revenue by 23%",
+        "Built automated anomaly detection system for fraud prevention",
+        "Led team of 4 data scientists in developing recommendation engine"
+      ]
+    },
+    {
+      company: "DataFlow Solutions",
+      position: "Data Scientist",
+      period: "2020 - 2022",
+      logo: "https://via.placeholder.com/80x80/00ffff/000000?text=DF",
+      description: "Specialized in predictive modeling and business intelligence",
+      projects: [
+        "Created demand forecasting models with 89% accuracy",
+        "Implemented A/B testing framework for product optimization",
+        "Developed real-time analytics dashboard for C-suite executives"
+      ]
+    },
+    {
+      company: "AI Innovations Lab",
+      position: "Junior Data Scientist",
+      period: "2019 - 2020",
+      logo: "https://via.placeholder.com/80x80/00ffff/000000?text=AI",
+      description: "Research and development in machine learning applications",
+      projects: [
+        "Published 3 research papers on deep learning applications",
+        "Developed computer vision models for medical imaging",
+        "Contributed to open-source ML libraries"
+      ]
+    }
+  ];
+
+  const education = [
+    {
+      degree: "Master of Science in Data Science",
+      school: "Stanford University",
+      year: "2019",
+      description: "Specialized in Machine Learning and Statistical Analysis"
+    },
+    {
+      degree: "Bachelor of Science in Computer Science",
+      school: "UC Berkeley",
+      year: "2017",
+      description: "Focus on Algorithms and Data Structures"
+    }
+  ];
+
+  const certifications = [
+    "AWS Certified Machine Learning Specialist",
+    "Google Cloud Professional Data Engineer",
+    "TensorFlow Developer Certificate",
+    "Tableau Desktop Specialist"
+  ];
+
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,10 +131,7 @@ const Index = () => {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Transforming complex data into actionable insights through advanced analytics and machine learning
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              View Projects
-            </Button>
+          <div className="flex justify-center">
             <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
               Download Resume
             </Button>
@@ -75,8 +139,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-20 px-4 max-w-6xl mx-auto">
+        {/* About Section */}
+      <section id="about" className="py-20 px-4 max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-foreground">About Me</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -103,8 +167,49 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience" className="py-20 px-4 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-foreground">Experience</h2>
+          <p className="text-lg text-muted-foreground">
+            My professional journey in data science and analytics
+          </p>
+        </div>
+
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          {experiences.map((exp, index) => (
+            <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 border-border rounded-lg px-6">
+              <AccordionTrigger className="hover:no-underline">
+                <div className="flex items-center gap-4 w-full">
+                  <img src={exp.logo} alt={`${exp.company} logo`} className="w-12 h-12 rounded-lg" />
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-foreground">{exp.position}</h3>
+                    <p className="text-primary font-medium">{exp.company}</p>
+                    <p className="text-sm text-muted-foreground">{exp.period}</p>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pt-4 pb-2">
+                <p className="text-muted-foreground mb-4">{exp.description}</p>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground">Key Projects & Achievements:</h4>
+                  <ul className="space-y-2">
+                    {exp.projects.map((project, projectIndex) => (
+                      <li key={projectIndex} className="text-muted-foreground flex items-start gap-2">
+                        <span className="text-primary mt-1.5">•</span>
+                        {project}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+
       {/* Projects Section */}
-      <section className="py-20 px-4 max-w-6xl mx-auto">
+      <section id="projects" className="py-20 px-4 max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
           <p className="text-lg text-muted-foreground">
@@ -135,21 +240,98 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Education & Certification Section */}
+      <section id="education" className="py-20 px-4 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-foreground">Education & Certifications</h2>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Education */}
+          <div>
+            <h3 className="text-2xl font-bold mb-8 text-foreground">Education</h3>
+            <div className="space-y-6">
+              {education.map((edu, index) => (
+                <Card key={index} className="bg-card/50 border-border">
+                  <CardContent className="p-6">
+                    <h4 className="text-lg font-semibold text-foreground mb-2">{edu.degree}</h4>
+                    <p className="text-primary font-medium mb-1">{edu.school}</p>
+                    <p className="text-sm text-muted-foreground mb-3">{edu.year}</p>
+                    <p className="text-muted-foreground">{edu.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Certifications */}
+          <div>
+            <h3 className="text-2xl font-bold mb-8 text-foreground">Certifications</h3>
+            <div className="space-y-4">
+              {certifications.map((cert, index) => (
+                <Card key={index} className="bg-card/50 border-border">
+                  <CardContent className="p-4">
+                    <p className="text-foreground font-medium">{cert}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section className="py-20 px-4 max-w-4xl mx-auto text-center">
+      <section id="contact" className="py-20 px-4 max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-8 text-foreground">Let's Connect</h2>
         <p className="text-lg text-muted-foreground mb-8">
           Interested in collaborating or discussing data science opportunities?
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-primary hover:bg-primary/90">
-            Get In Touch
-          </Button>
-          <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-            LinkedIn Profile
-          </Button>
+        <div className="flex gap-8 justify-center">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+            <Github className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+            <Linkedin className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+            <Instagram className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+          </a>
         </div>
       </section>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border z-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center gap-8 py-4">
+            <button onClick={() => scrollToSection('about')} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              About
+            </button>
+            <button onClick={() => scrollToSection('experience')} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Experience
+            </button>
+            <button onClick={() => scrollToSection('projects')} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Projects
+            </button>
+            <button onClick={() => scrollToSection('education')} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Education
+            </button>
+            <button onClick={() => scrollToSection('contact')} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Contact
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Bottom padding for fixed nav */}
+      <div className="h-16"></div>
     </div>
   );
 };
