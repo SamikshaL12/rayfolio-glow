@@ -1,18 +1,33 @@
 import TextType from '../components/TextType';
 import LightRays from '../components/LightRays';
+import AnimatedContent from '../components/AnimatedContent';
+import ChatBot from '../components/ChatBot';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Github, Linkedin, Instagram } from 'lucide-react';
 import Dock from '../components/Dock';
 import { VscHome, VscPerson, VscBriefcase, VscMortarBoard, VscMail, VscRobot } from 'react-icons/vsc';
+import { useState } from 'react';
 
 const Index = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   const skills = [
-    'Python', 'R', 'SQL', 'Machine Learning', 'Deep Learning', 'TensorFlow', 
-    'PyTorch', 'Pandas', 'NumPy', 'Scikit-learn', 'Tableau', 'Power BI',
-    'Statistics', 'Data Visualization', 'Big Data', 'AWS', 'Docker'
+    { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'R', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg' },
+    { name: 'SQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { name: 'TensorFlow', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
+    { name: 'PyTorch', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+    { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
+    { name: 'NumPy', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
+    { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+    { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' },
+    { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' }
   ];
 
   const projects = [
@@ -119,7 +134,11 @@ const Index = () => {
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="animate-float">
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-foreground">
+            <div className="mb-4">
+              <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Alex Rodriguez</h1>
+            </div>
+            <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
               <TextType 
                 text={["Data Scientist", "ML Engineer", "Analytics Expert"]}
                 typingSpeed={75}
@@ -128,7 +147,7 @@ const Index = () => {
                 cursorCharacter="|"
                 className="text-primary animate-glow"
               />
-            </h1>
+            </h3>
           </div>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Transforming complex data into actionable insights through advanced analytics and machine learning
@@ -141,167 +160,241 @@ const Index = () => {
         </div>
       </section>
 
-        {/* About Section */}
+      {/* About Section */}
       <section id="about" className="py-20 px-4 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-foreground">About Me</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            I'm a passionate data scientist with 5+ years of experience in extracting meaningful insights 
-            from complex datasets. I specialize in machine learning, statistical analysis, and building 
-            scalable data solutions that drive business decisions.
-          </p>
-        </div>
-
-        {/* Skills */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-center text-foreground">Technical Skills</h3>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {skills.map((skill, index) => (
-              <Badge 
-                key={index} 
-                variant="secondary" 
-                className="text-sm py-2 px-4 bg-secondary/50 border border-primary/20 hover:border-primary/50 transition-colors"
-              >
-                {skill}
-              </Badge>
-            ))}
+        <AnimatedContent
+          distance={150}
+          direction="vertical"
+          reverse={false}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.3}
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-foreground">About Me</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              I'm a passionate data scientist with 5+ years of experience in extracting meaningful insights 
+              from complex datasets. I specialize in machine learning, statistical analysis, and building 
+              scalable data solutions that drive business decisions.
+            </p>
           </div>
-        </div>
+
+          {/* Skills */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold mb-8 text-center text-foreground">Technical Skills</h3>
+            <TooltipProvider>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {skills.map((skill, index) => (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <div className="group cursor-pointer p-3 bg-secondary/50 border border-primary/20 hover:border-primary/50 transition-all duration-300 rounded-lg hover:scale-110">
+                        <img 
+                          src={skill.logo} 
+                          alt={skill.name}
+                          className="w-8 h-8 filter brightness-0 invert group-hover:filter-none transition-all duration-300"
+                        />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{skill.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
+          </div>
+        </AnimatedContent>
       </section>
 
       {/* Experience Section */}
       <section id="experience" className="py-20 px-4 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-foreground">Experience</h2>
-          <p className="text-lg text-muted-foreground">
-            My professional journey in data science and analytics
-          </p>
-        </div>
+        <AnimatedContent
+          distance={150}
+          direction="horizontal"
+          reverse={true}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.1}
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-foreground">Experience</h2>
+            <p className="text-lg text-muted-foreground">
+              My professional journey in data science and analytics
+            </p>
+          </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-4">
-          {experiences.map((exp, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 border-border rounded-lg px-6">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-4 w-full">
-                  <img src={exp.logo} alt={`${exp.company} logo`} className="w-12 h-12 rounded-lg" />
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-foreground">{exp.position}</h3>
-                    <p className="text-primary font-medium">{exp.company}</p>
-                    <p className="text-sm text-muted-foreground">{exp.period}</p>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {experiences.map((exp, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 border-border rounded-lg px-6">
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center gap-4 w-full">
+                    <img src={exp.logo} alt={`${exp.company} logo`} className="w-12 h-12 rounded-lg" />
+                    <div className="text-left">
+                      <h3 className="text-xl font-semibold text-foreground">{exp.position}</h3>
+                      <p className="text-primary font-medium">{exp.company}</p>
+                      <p className="text-sm text-muted-foreground">{exp.period}</p>
+                    </div>
                   </div>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="pt-4 pb-2">
-                <p className="text-muted-foreground mb-4">{exp.description}</p>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Key Projects & Achievements:</h4>
-                  <ul className="space-y-2">
-                    {exp.projects.map((project, projectIndex) => (
-                      <li key={projectIndex} className="text-muted-foreground flex items-start gap-2">
-                        <span className="text-primary mt-1.5">•</span>
-                        {project}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4 pb-2">
+                  <p className="text-muted-foreground mb-4">{exp.description}</p>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-foreground">Key Projects & Achievements:</h4>
+                    <ul className="space-y-2">
+                      {exp.projects.map((project, projectIndex) => (
+                        <li key={projectIndex} className="text-muted-foreground flex items-start gap-2">
+                          <span className="text-primary mt-1.5">•</span>
+                          {project}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </AnimatedContent>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-4 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
-          <p className="text-lg text-muted-foreground">
-            A selection of my recent work in data science and machine learning
-          </p>
-        </div>
+        <AnimatedContent
+          distance={150}
+          direction="vertical"
+          reverse={false}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.2}
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
+            <p className="text-lg text-muted-foreground">
+              A selection of my recent work in data science and machine learning
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <Card key={index} className="bg-card/50 border-border hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <CardTitle className="text-xl text-foreground">{project.title}</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="outline" className="text-xs border-primary/30">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <Card key={index} className="bg-card/50 border-border hover:border-primary/50 transition-colors">
+                <CardHeader>
+                  <CardTitle className="text-xl text-foreground">{project.title}</CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech, techIndex) => (
+                      <Badge key={techIndex} variant="outline" className="text-xs border-primary/30">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </AnimatedContent>
       </section>
 
       {/* Education & Certification Section */}
       <section id="education" className="py-20 px-4 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-foreground">Education & Certifications</h2>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Education */}
-          <div>
-            <h3 className="text-2xl font-bold mb-8 text-foreground">Education</h3>
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <Card key={index} className="bg-card/50 border-border">
-                  <CardContent className="p-6">
-                    <h4 className="text-lg font-semibold text-foreground mb-2">{edu.degree}</h4>
-                    <p className="text-primary font-medium mb-1">{edu.school}</p>
-                    <p className="text-sm text-muted-foreground mb-3">{edu.year}</p>
-                    <p className="text-muted-foreground">{edu.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+        <AnimatedContent
+          distance={150}
+          direction="horizontal"
+          reverse={false}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.4}
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-foreground">Education & Certifications</h2>
           </div>
 
-          {/* Certifications */}
-          <div>
-            <h3 className="text-2xl font-bold mb-8 text-foreground">Certifications</h3>
-            <div className="space-y-4">
-              {certifications.map((cert, index) => (
-                <Card key={index} className="bg-card/50 border-border">
-                  <CardContent className="p-4">
-                    <p className="text-foreground font-medium">{cert}</p>
-                  </CardContent>
-                </Card>
-              ))}
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Education */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8 text-foreground">Education</h3>
+              <div className="space-y-6">
+                {education.map((edu, index) => (
+                  <Card key={index} className="bg-card/50 border-border">
+                    <CardContent className="p-6">
+                      <h4 className="text-lg font-semibold text-foreground mb-2">{edu.degree}</h4>
+                      <p className="text-primary font-medium mb-1">{edu.school}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{edu.year}</p>
+                      <p className="text-muted-foreground">{edu.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Certifications */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8 text-foreground">Certifications</h3>
+              <div className="space-y-4">
+                {certifications.map((cert, index) => (
+                  <Card key={index} className="bg-card/50 border-border">
+                    <CardContent className="p-4">
+                      <p className="text-foreground font-medium">{cert}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </AnimatedContent>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-8 text-foreground">Let's Connect</h2>
-        <p className="text-lg text-muted-foreground mb-8">
-          Interested in collaborating or discussing data science opportunities?
-        </p>
-        <div className="flex gap-8 justify-center">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
-            <Github className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
-            <Linkedin className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-             className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
-            <Instagram className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
-          </a>
-        </div>
+        <AnimatedContent
+          distance={150}
+          direction="vertical"
+          reverse={true}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.5}
+        >
+          <h2 className="text-4xl font-bold mb-8 text-foreground">Let's Connect</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Interested in collaborating or discussing data science opportunities?
+          </p>
+          <div className="flex gap-8 justify-center">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+               className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+              <Github className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+               className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+              <Linkedin className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+               className="p-4 bg-card/50 border border-border rounded-lg hover:border-primary/50 transition-colors">
+              <Instagram className="w-8 h-8 text-foreground hover:text-primary transition-colors" />
+            </a>
+          </div>
+        </AnimatedContent>
       </section>
 
       {/* Dock Navigation */}
@@ -312,12 +405,15 @@ const Index = () => {
           { icon: <VscBriefcase size={20} />, label: 'Experience', onClick: () => scrollToSection('experience') },
           { icon: <VscMortarBoard size={20} />, label: 'Education', onClick: () => scrollToSection('education') },
           { icon: <VscMail size={20} />, label: 'Contact', onClick: () => scrollToSection('contact') },
-          { icon: <VscRobot size={20} />, label: 'Chatbot', onClick: () => alert('Chatbot coming soon!') },
+          { icon: <VscRobot size={20} />, label: 'Chatbot', onClick: () => setIsChatOpen(true) },
         ]}
         panelHeight={68}
         baseItemSize={50}
         magnification={70}
       />
+
+      {/* ChatBot */}
+      <ChatBot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* Bottom padding for fixed dock */}
       <div className="h-20"></div>
