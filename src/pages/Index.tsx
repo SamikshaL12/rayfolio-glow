@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Github, Linkedin, Instagram } from 'lucide-react';
+import Dock from '../components/Dock';
+import { VscHome, VscPerson, VscBriefcase, VscMortarBoard, VscMail, VscRobot } from 'react-icons/vsc';
 
 const Index = () => {
   const skills = [
@@ -302,36 +304,23 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex justify-center gap-8 py-4">
-            <button onClick={() => scrollToSection('about')} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              About
-            </button>
-            <button onClick={() => scrollToSection('experience')} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              Experience
-            </button>
-            <button onClick={() => scrollToSection('projects')} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              Projects
-            </button>
-            <button onClick={() => scrollToSection('education')} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              Education
-            </button>
-            <button onClick={() => scrollToSection('contact')} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              Contact
-            </button>
-          </div>
-        </div>
-      </nav>
+      {/* Dock Navigation */}
+      <Dock 
+        items={[
+          { icon: <VscHome size={20} />, label: 'Home', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+          { icon: <VscPerson size={20} />, label: 'About', onClick: () => scrollToSection('about') },
+          { icon: <VscBriefcase size={20} />, label: 'Experience', onClick: () => scrollToSection('experience') },
+          { icon: <VscMortarBoard size={20} />, label: 'Education', onClick: () => scrollToSection('education') },
+          { icon: <VscMail size={20} />, label: 'Contact', onClick: () => scrollToSection('contact') },
+          { icon: <VscRobot size={20} />, label: 'Chatbot', onClick: () => alert('Chatbot coming soon!') },
+        ]}
+        panelHeight={68}
+        baseItemSize={50}
+        magnification={70}
+      />
 
-      {/* Bottom padding for fixed nav */}
-      <div className="h-16"></div>
+      {/* Bottom padding for fixed dock */}
+      <div className="h-20"></div>
     </div>
   );
 };
