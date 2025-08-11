@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +27,15 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
     }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -136,6 +145,7 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
                     )}
                   </div>
                 ))}
+                <div ref={messagesEndRef} />
               </div>
               <div className="p-4 border-t border-border">
                 <div className="flex gap-2">
