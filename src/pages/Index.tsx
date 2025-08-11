@@ -34,17 +34,26 @@ const Index = () => {
     {
       title: "Predictive Analytics Dashboard",
       description: "Built a comprehensive ML pipeline for customer churn prediction with 94% accuracy",
-      tech: ["Python", "Scikit-learn", "Streamlit", "PostgreSQL"]
+      detailedDescription: "A comprehensive machine learning pipeline that analyzes customer behavior patterns to predict churn with 94% accuracy. The system processes over 50,000 customer records daily, implementing ensemble methods combining Random Forest, XGBoost, and Neural Networks. Features real-time data ingestion, automated feature engineering, and interactive dashboards for business stakeholders.",
+      tech: ["Python", "Scikit-learn", "Streamlit", "PostgreSQL"],
+      github: "https://github.com/alexrodriguez/predictive-analytics",
+      demo: "https://predictive-dashboard.herokuapp.com"
     },
     {
       title: "Real-time Data Processing",
       description: "Designed streaming data architecture processing 1M+ events per hour",
-      tech: ["Apache Kafka", "Spark", "AWS", "Python"]
+      detailedDescription: "A scalable real-time data processing system built on Apache Kafka and Spark Streaming, capable of handling 1M+ events per hour. Implemented event-driven architecture with automatic scaling, fault tolerance, and low-latency processing. The system processes IoT sensor data, user interactions, and transaction logs for real-time analytics and alerting.",
+      tech: ["Apache Kafka", "Spark", "AWS", "Python"],
+      github: "https://github.com/alexrodriguez/realtime-processor",
+      demo: null
     },
     {
       title: "Computer Vision Pipeline",
       description: "Developed automated image classification system for medical diagnostics",
-      tech: ["TensorFlow", "OpenCV", "Docker", "Flask"]
+      detailedDescription: "An advanced computer vision system for medical image analysis, achieving 96% accuracy in detecting anomalies in X-ray and MRI scans. Implements state-of-the-art CNN architectures including ResNet and EfficientNet, with custom data augmentation pipelines and uncertainty quantification for clinical decision support.",
+      tech: ["TensorFlow", "OpenCV", "Docker", "Flask"],
+      github: "https://github.com/alexrodriguez/medical-cv",
+      demo: "https://medical-cv-demo.com"
     }
   ];
 
@@ -103,10 +112,30 @@ const Index = () => {
   ];
 
   const certifications = [
-    "AWS Certified Machine Learning Specialist",
-    "Google Cloud Professional Data Engineer",
-    "TensorFlow Developer Certificate",
-    "Tableau Desktop Specialist"
+    {
+      name: "AWS Certified Machine Learning Specialist",
+      provider: "Amazon Web Services",
+      year: "2023",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"
+    },
+    {
+      name: "Google Cloud Professional Data Engineer",
+      provider: "Google Cloud",
+      year: "2023",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg"
+    },
+    {
+      name: "TensorFlow Developer Certificate",
+      provider: "TensorFlow",
+      year: "2022",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
+    },
+    {
+      name: "Tableau Desktop Specialist",
+      provider: "Tableau",
+      year: "2022",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+    }
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -285,27 +314,49 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {projects.map((project, index) => (
-              <Card key={index} className="bg-card/50 border-border hover:border-primary/50 transition-colors">
-                <CardHeader>
-                  <CardTitle className="text-xl text-foreground">{project.title}</CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="outline" className="text-xs border-primary/30">
-                        {tech}
-                      </Badge>
-                    ))}
+              <AccordionItem key={index} value={`project-${index}`} className="bg-card/50 border-border rounded-lg px-6">
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center gap-4 w-full">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex-shrink-0 flex items-center justify-center">
+                      <span className="text-2xl">{index === 0 ? '📊' : index === 1 ? '⚡' : '🔬'}</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
+                      <p className="text-muted-foreground">{project.description}</p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4 pb-2">
+                  <div className="border-t border-border pt-4">
+                    <p className="text-muted-foreground mb-4">{project.detailedDescription}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="outline" className="text-xs border-primary/30">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="flex gap-4">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" 
+                         className="flex items-center gap-2 text-primary hover:underline">
+                        <Github className="w-4 h-4" />
+                        View Code
+                      </a>
+                      {project.demo && (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                           className="flex items-center gap-2 text-primary hover:underline">
+                          <span className="w-4 h-4">🚀</span>
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </AnimatedContent>
       </section>
 
@@ -352,7 +403,13 @@ const Index = () => {
                 {certifications.map((cert, index) => (
                   <Card key={index} className="bg-card/50 border-border">
                     <CardContent className="p-4">
-                      <p className="text-foreground font-medium">{cert}</p>
+                      <div className="flex items-center gap-4">
+                        <img src={cert.logo} alt={`${cert.provider} logo`} className="w-10 h-10" />
+                        <div>
+                          <p className="text-foreground font-medium">{cert.name}</p>
+                          <p className="text-sm text-muted-foreground">{cert.provider} • {cert.year}</p>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
