@@ -165,7 +165,7 @@ const Index = () => {
           <div className="animate-float">
             <div className="mb-4">
               <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
-              <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Alex Rodriguez</h1>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Divyansh Gupta</h1>
             </div>
             <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
               <TextType 
