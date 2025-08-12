@@ -161,45 +161,32 @@ const Index = () => {
           />
         </div>
         
-        <AnimatedContent
-          distance={150}
-          direction="horizontal"
-          reverse={false}
-          duration={1.2}
-          ease="bounce.out"
-          initialOpacity={0.2}
-          animateOpacity
-          scale={1.1}
-          threshold={0.2}
-          delay={0.3}
-        >
-          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <div className="animate-float">
-              <div className="mb-4">
-                <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
-                <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Divyansh Gupta</h1>
-              </div>
-              <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-                <TextType 
-                  text={["Data Scientist", "ML Engineer", "Analytics Expert"]}
-                  typingSpeed={75}
-                  pauseDuration={2000}
-                  showCursor={true}
-                  cursorCharacter="|"
-                  className="text-primary animate-glow"
-                />
-              </h3>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <div className="animate-float">
+            <div className="mb-4">
+              <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Divyansh Gupta</h1>
             </div>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Transforming complex data into actionable insights through advanced analytics and machine learning
-            </p>
-            <div className="flex justify-center">
-              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                Download Resume
-              </Button>
-            </div>
+            <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+              <TextType 
+                text={["Data Scientist", "ML Engineer", "Analytics Expert"]}
+                typingSpeed={75}
+                pauseDuration={2000}
+                showCursor={true}
+                cursorCharacter="|"
+                className="text-primary animate-glow"
+              />
+            </h3>
           </div>
-        </AnimatedContent>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Transforming complex data into actionable insights through advanced analytics and machine learning
+          </p>
+          <div className="flex justify-center">
+            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              Download Resume
+            </Button>
+          </div>
+        </div>
       </section>
 
       {/* About Section */}
