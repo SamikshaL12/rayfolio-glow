@@ -9,7 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Github, Linkedin, Instagram } from 'lucide-react';
 import Dock from '../components/Dock';
-import { VscHome, VscPerson, VscBriefcase, VscMortarBoard, VscMail, VscRobot } from 'react-icons/vsc';
+import { VscHome, VscPerson, VscBriefcase, VscCode, VscMortarBoard, VscMail, VscRobot } from 'react-icons/vsc';
 import { useState } from 'react';
 
 const Index = () => {
@@ -161,39 +161,52 @@ const Index = () => {
           />
         </div>
         
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="animate-float">
-            <div className="mb-4">
-              <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
-              <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Alex Rodriguez</h1>
+        <AnimatedContent
+          distance={150}
+          direction="horizontal"
+          reverse={false}
+          duration={1.2}
+          ease="bounce.out"
+          initialOpacity={0.2}
+          animateOpacity
+          scale={1.1}
+          threshold={0.2}
+          delay={0.3}
+        >
+          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div className="animate-float">
+              <div className="mb-4">
+                <h2 className="text-2xl md:text-3xl font-light text-muted-foreground mb-2">Hello, I'm</h2>
+                <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground">Divyansh Gupta</h1>
+              </div>
+              <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+                <TextType 
+                  text={["Data Scientist", "ML Engineer", "Analytics Expert"]}
+                  typingSpeed={75}
+                  pauseDuration={2000}
+                  showCursor={true}
+                  cursorCharacter="|"
+                  className="text-primary animate-glow"
+                />
+              </h3>
             </div>
-            <h3 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-              <TextType 
-                text={["Data Scientist", "ML Engineer", "Analytics Expert"]}
-                typingSpeed={75}
-                pauseDuration={2000}
-                showCursor={true}
-                cursorCharacter="|"
-                className="text-primary animate-glow"
-              />
-            </h3>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Transforming complex data into actionable insights through advanced analytics and machine learning
+            </p>
+            <div className="flex justify-center">
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                Download Resume
+              </Button>
+            </div>
           </div>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Transforming complex data into actionable insights through advanced analytics and machine learning
-          </p>
-          <div className="flex justify-center">
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-              Download Resume
-            </Button>
-          </div>
-        </div>
+        </AnimatedContent>
       </section>
 
       {/* About Section */}
       <section id="about" className="py-20 px-4 max-w-6xl mx-auto">
         <AnimatedContent
           distance={150}
-          direction="vertical"
+          direction="horizontal"
           reverse={false}
           duration={1.2}
           ease="bounce.out"
@@ -244,14 +257,14 @@ const Index = () => {
         <AnimatedContent
           distance={150}
           direction="horizontal"
-          reverse={true}
+          reverse={false}
           duration={1.2}
           ease="bounce.out"
           initialOpacity={0.2}
           animateOpacity
           scale={1.1}
           threshold={0.2}
-          delay={0.1}
+          delay={0.3}
         >
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-foreground">Experience</h2>
@@ -297,7 +310,7 @@ const Index = () => {
       <section id="projects" className="py-20 px-4 max-w-6xl mx-auto">
         <AnimatedContent
           distance={150}
-          direction="vertical"
+          direction="horizontal"
           reverse={false}
           duration={1.2}
           ease="bounce.out"
@@ -305,7 +318,7 @@ const Index = () => {
           animateOpacity
           scale={1.1}
           threshold={0.2}
-          delay={0.2}
+          delay={0.3}
         >
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
@@ -372,7 +385,7 @@ const Index = () => {
           animateOpacity
           scale={1.1}
           threshold={0.2}
-          delay={0.4}
+          delay={0.3}
         >
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-foreground">Education & Certifications</h2>
@@ -423,15 +436,15 @@ const Index = () => {
       <section id="contact" className="py-20 px-4 max-w-4xl mx-auto text-center">
         <AnimatedContent
           distance={150}
-          direction="vertical"
-          reverse={true}
+          direction="horizontal"
+          reverse={false}
           duration={1.2}
           ease="bounce.out"
           initialOpacity={0.2}
           animateOpacity
           scale={1.1}
           threshold={0.2}
-          delay={0.5}
+          delay={0.3}
         >
           <h2 className="text-4xl font-bold mb-8 text-foreground">Let's Connect</h2>
           <p className="text-lg text-muted-foreground mb-8">
@@ -460,6 +473,7 @@ const Index = () => {
           { icon: <VscHome size={20} />, label: 'Home', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
           { icon: <VscPerson size={20} />, label: 'About', onClick: () => scrollToSection('about') },
           { icon: <VscBriefcase size={20} />, label: 'Experience', onClick: () => scrollToSection('experience') },
+          { icon: <VscCode size={20} />, label: 'Projects', onClick: () => scrollToSection('projects') },
           { icon: <VscMortarBoard size={20} />, label: 'Education', onClick: () => scrollToSection('education') },
           { icon: <VscMail size={20} />, label: 'Contact', onClick: () => scrollToSection('contact') },
           { icon: <VscRobot size={20} />, label: 'Chatbot', onClick: () => setIsChatOpen(true) },
