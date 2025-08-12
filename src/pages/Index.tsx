@@ -7,13 +7,36 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Github, Linkedin, Instagram, ChevronRight, ChevronLeft } from 'lucide-react';
 import Dock from '../components/Dock';
 import { VscHome, VscPerson, VscBriefcase, VscMortarBoard, VscMail, VscRobot } from 'react-icons/vsc';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const Index = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const sections = ['home', 'about', 'experience', 'projects', 'education', 'contact'];
+  
+  const slideToSection = (sectionIndex: number) => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const sectionWidth = container.clientWidth;
+      container.scrollTo({
+        left: sectionIndex * sectionWidth,
+        behavior: 'smooth'
+      });
+      setCurrentSection(sectionIndex);
+    }
+  };
+  
+  const navigateSection = (direction: 'next' | 'prev') => {
+    const newIndex = direction === 'next' 
+      ? Math.min(currentSection + 1, sections.length - 1)
+      : Math.max(currentSection - 1, 0);
+    slideToSection(newIndex);
+  };
 
   const skills = [
     { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
@@ -138,14 +161,17 @@ const Index = () => {
     }
   ];
 
-  const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen bg-background relative">
+      {/* Horizontal Container */}
+      <div 
+        ref={containerRef}
+        className="flex overflow-x-hidden h-screen"
+        style={{ width: `${sections.length * 100}vw` }}
+      >
+        {/* Hero Section */}
+        <section className="relative h-screen w-screen flex items-center justify-center overflow-hidden flex-shrink-0">
         <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}>
           <LightRays
             raysOrigin="top-center"
@@ -187,10 +213,10 @@ const Index = () => {
             </Button>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 max-w-6xl mx-auto">
+        {/* About Section */}
+        <section className="h-screen w-screen py-20 px-4 max-w-6xl mx-auto flex-shrink-0 overflow-y-auto">
         <AnimatedContent
           distance={150}
           direction="vertical"
@@ -237,10 +263,10 @@ const Index = () => {
             </TooltipProvider>
           </div>
         </AnimatedContent>
-      </section>
+        </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-20 px-4 max-w-6xl mx-auto">
+        {/* Experience Section */}
+        <section className="h-screen w-screen py-20 px-4 max-w-6xl mx-auto flex-shrink-0 overflow-y-auto">
         <AnimatedContent
           distance={150}
           direction="horizontal"
@@ -291,10 +317,10 @@ const Index = () => {
             ))}
           </Accordion>
         </AnimatedContent>
-      </section>
+        </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 max-w-6xl mx-auto">
+        {/* Projects Section */}
+        <section className="h-screen w-screen py-20 px-4 max-w-6xl mx-auto flex-shrink-0 overflow-y-auto">
         <AnimatedContent
           distance={150}
           direction="vertical"
@@ -358,10 +384,10 @@ const Index = () => {
             ))}
           </Accordion>
         </AnimatedContent>
-      </section>
+        </section>
 
-      {/* Education & Certification Section */}
-      <section id="education" className="py-20 px-4 max-w-6xl mx-auto">
+        {/* Education & Certification Section */}
+        <section className="h-screen w-screen py-20 px-4 max-w-6xl mx-auto flex-shrink-0 overflow-y-auto">
         <AnimatedContent
           distance={150}
           direction="horizontal"
@@ -417,10 +443,10 @@ const Index = () => {
             </div>
           </div>
         </AnimatedContent>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 max-w-4xl mx-auto text-center">
+        {/* Contact Section */}
+        <section className="h-screen w-screen py-20 px-4 max-w-4xl mx-auto text-center flex-shrink-0 overflow-y-auto">
         <AnimatedContent
           distance={150}
           direction="vertical"
@@ -452,16 +478,51 @@ const Index = () => {
             </a>
           </div>
         </AnimatedContent>
-      </section>
+        </section>
+      </div>
+
+      {/* Navigation Arrows */}
+      <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-4">
+        <Button
+          size="sm"
+          variant="outline"
+          className="w-10 h-10 p-0 rounded-full border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm"
+          onClick={() => navigateSection('prev')}
+          disabled={currentSection === 0}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </Button>
+        <div className="flex flex-col gap-2">
+          {sections.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => slideToSection(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                currentSection === index ? 'bg-primary' : 'bg-primary/30'
+              }`}
+            />
+          ))}
+        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          className="w-10 h-10 p-0 rounded-full border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm"
+          onClick={() => navigateSection('next')}
+          disabled={currentSection === sections.length - 1}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </Button>
+      </div>
 
       {/* Dock Navigation */}
       <Dock 
         items={[
-          { icon: <VscHome size={20} />, label: 'Home', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-          { icon: <VscPerson size={20} />, label: 'About', onClick: () => scrollToSection('about') },
-          { icon: <VscBriefcase size={20} />, label: 'Experience', onClick: () => scrollToSection('experience') },
-          { icon: <VscMortarBoard size={20} />, label: 'Education', onClick: () => scrollToSection('education') },
-          { icon: <VscMail size={20} />, label: 'Contact', onClick: () => scrollToSection('contact') },
+          { icon: <VscHome size={20} />, label: 'Home', onClick: () => slideToSection(0) },
+          { icon: <VscPerson size={20} />, label: 'About', onClick: () => slideToSection(1) },
+          { icon: <VscBriefcase size={20} />, label: 'Experience', onClick: () => slideToSection(2) },
+          { icon: <VscBriefcase size={20} />, label: 'Projects', onClick: () => slideToSection(3) },
+          { icon: <VscMortarBoard size={20} />, label: 'Education', onClick: () => slideToSection(4) },
+          { icon: <VscMail size={20} />, label: 'Contact', onClick: () => slideToSection(5) },
           { icon: <VscRobot size={20} />, label: 'Chatbot', onClick: () => setIsChatOpen(true) },
         ]}
         panelHeight={68}
